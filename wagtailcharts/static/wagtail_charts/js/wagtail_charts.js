@@ -17,7 +17,7 @@ for (i = 0; i < charts.length; ++i) {
     }
 
     const myChart = new Chart(charts[i].getContext('2d'), {
-        type: bar,
+        type: 'bar',
         data: {
             labels: labels,
             datasets: datasets
