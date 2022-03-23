@@ -1,5 +1,7 @@
 class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefinition {
   render(placeholder, prefix, initialState, initialError) {
+
+    // debugger
     
     /* Hide TextField and display table instead */
     const block = super.render(placeholder, prefix, initialState, initialError);

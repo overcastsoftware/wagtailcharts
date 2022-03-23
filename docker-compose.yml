@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  postgres-data:
+  node_modules:
+  
+services:
+  web:
+    container_name: "wagtailchartsweb"
+    build: ./
+    working_dir: /code/wagtailcharts_demo
+    command: ./manage.py runserver 0.0.0.0:8000
+    restart: "no"
+    volumes:
+      - ./wagtailcharts_demo:/code/wagtailcharts_demo:delegated,rw
+      - ./wagtailcharts:/code/wagtailcharts/wagtailcharts:delegated,rw
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgres://wagtail:changeme@db/wagtail"
+      PYTHONPATH: "/code/wagtail:/code/wagtailcharts_demo:$PYTHONPATH"
+    depends_on:
+      - db
+  db:
+    container_name: "wagtailchartsdb"
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_USER: wagtail
+      POSTGRES_DB: wagtail
+      POSTGRES_PASSWORD: changeme
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: "no"
+    expose:
+      - "5432"

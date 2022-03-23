@@ -21,7 +21,7 @@ INSTALLED_APPS = [
 Add a wagtailcharts ChartBlock to one of your StreamFields:
 
 ```
-from wagtail_charts.blocks import CartesianChartBlock as ChartBlock
+from wagtailcharts.blocks import CartesianChartBlock as ChartBlock
 
 class ContentBlocks(StreamBlock):
     chart_block = ChartBlock()
@@ -32,7 +32,7 @@ Please note that you must render your chart block so that the `render_charts` ta
 Here is a tiny example of a page rendering template:
 
 ```
-{% load wagtailcore_tags wagtail_charts_tags %}
+{% load wagtailcore_tags wagtailcharts_tags %}
 
 {% block content %}
 <div class="container-fluid">

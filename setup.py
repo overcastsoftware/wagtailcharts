@@ -24,7 +24,7 @@ documentation_extras = [
 setup(
     name='wagtailcharts',
     version='0.1',
-    packages=['commonblocks'],
+    packages=['wagtailcharts'],
     include_package_data=True,
     license='MIT',
     description='Chart.js charts for Wagtail',
