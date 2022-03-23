@@ -32,12 +32,11 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
 
     /* Update TextField on changes */
     var spread = null;
-    // var changed = function(instance, cell, x, y, value) {
-    //   if(spread !== null){
-        
-    //     dataSetField.value = JSON.stringify((spread));
-    //   }
-    // }
+    var changed = function(instance, cell, x, y, value) {
+      if(spread !== null){
+        dataSetField.value = JSON.stringify(spread.getData());
+      }
+    }
 
     spread = jspreadsheet(document.getElementById(prefix + "-dataset-table"), {
       data: JSON.parse(dataSetField.value),
@@ -46,7 +45,7 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
           { type: 'dropdown', title:'Type', width:100, source: this.meta.chart_types.map(x => {return {'id':x[0], 'name':x[1]}}) },
           { type: 'dropdown', title: 'Color', width:100, source: this.meta.colors.map(x => {return {'id':x[0], 'name':x[1], 'color': x[0]}}) }
       ],
-      minDimensions:[20,2],
+      minDimensions:[4,2],
       tableOverflow: true,
       tableWidth: "100%",
       mergeCells:{
@@ -58,7 +57,9 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
             document.querySelector('td[data-y="0"]').textContent = "Labels";
         }
       },
-      //onchange: changed
+      onchange: changed,
+      ondeleterow: changed,
+      ondeletecolumn: changed
     });
 
     return block;

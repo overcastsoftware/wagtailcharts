@@ -7,4 +7,5 @@ from wagtailcharts.blocks import CartesianChartBlock as ChartBlock
 
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block = ChartBlock()
+    #chart_block = ChartBlock()
+    chart_block = ChartBlock(template='home/custom_chart.html')
