@@ -26,6 +26,17 @@ class ContentBlocks(StreamBlock):
     chart_block = ChartBlock()
 ```
 
+Include your streamblock in one of your pages
+
+```
+class HomePage(Page):
+    body = StreamField(ContentBlocks())
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+```
+
 Add the ... templatetag to your template and call the `render_charts` tag just before your `</body>` closing tag.
 Please note that you must render your chart block so that the `render_charts` tag can detect the charts.
 Here is a tiny example of a page rendering template:
