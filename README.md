@@ -12,8 +12,7 @@ Add `wagtailcharts` to your settings.py in the INSTALLED_APPS section, before th
 ```
 INSTALLED_APPS = [
     # ...
-    'commonblocks',
-    'wagtail.contrib.wagtailsitemaps',
+    'wagtailcharts',
     # ...
 ]
 ```
