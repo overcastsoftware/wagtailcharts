@@ -54,3 +54,5 @@ Here is a tiny example of a page rendering template:
 ```
 
 
+## Dependencies
+This project relies on Jspreadsheet Community Edition for data entry and manipulation.
