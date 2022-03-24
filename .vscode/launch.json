@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run Django",
+        "type": "python",
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}/",
+            "remoteRoot": "/code/wagtailcharts/"
+          }
+        ],
+        "port": 3000,
+        "host": "192.168.64.3",
+      }
+    ]
+  }

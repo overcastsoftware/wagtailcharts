@@ -2,3 +2,4 @@ Django>=4.0,<4.1
 wagtail>=2.16,<2.17
 dj-database-url==0.4.1
 psycopg2-binary>=2.7,<3.0
+debugpy==1.5.1

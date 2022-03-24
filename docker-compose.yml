@@ -16,6 +16,7 @@ services:
       - ./wagtailcharts:/code/wagtailcharts/wagtailcharts:delegated,rw
     ports:
       - "8000:8000"
+      - 3000:3000
     environment:
       DATABASE_URL: "postgres://wagtail:changeme@db/wagtail"
       PYTHONPATH: "/code/wagtail:/code/wagtailcharts_demo:$PYTHONPATH"
