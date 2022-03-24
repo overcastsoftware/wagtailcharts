@@ -43,14 +43,14 @@ class ChartSettingsBlock(StructBlock):
     y_left_min = CharBlock(required=False, label='Left Y axis minimum value')
     y_left_max = CharBlock(required=False, label='Left Y axis maximum value')
     y_left_step_size = CharBlock(required=False, label='Left Y axis step size')
+    y_left_label = CharBlock(required=False, label='Left Y axis label')
 
     y_right_min = CharBlock(required=False, label='Right Y axis minimum value')
     y_right_max = CharBlock(required=False, label='Right Y axis maximum value')
     y_right_step_size = CharBlock(required=False, label='Right Y axis step size')
+    y_right_label = CharBlock(required=False, label='Right Y axis label')
     
     x_label = CharBlock(required=False, label='X axis label')
-    y_left_label = CharBlock(required=False, label='Left Y axis label')
-    y_right_label = CharBlock(required=False, label='Right Y axis label')
 
     stacking = ChoiceBlock(
         choices=(
@@ -76,7 +76,7 @@ class ChartSettingsBlock(StructBlock):
         value_class = SettingsStructValue
 
 
-class CartesianChartBlock(StructBlock):
+class ChartBlock(StructBlock):
 
 
     title = CharBlock()
@@ -87,18 +87,18 @@ class CartesianChartBlock(StructBlock):
 
     class Meta:
         icon = 'fa-chart'
-        label = 'Cartesian Chart Block'
-        template = 'wagtailcharts/blocks/cartesian_chart_block.html'
+        label = 'Chart Block'
+        template = 'wagtailcharts/blocks/chart_block.html'
         colors = CHART_COLOR_CHOICES
         bar_chart_types = BAR_CHART_TYPES
 
 
-class CartesianChartAdapter(StructBlockAdapter):
-    js_constructor = 'streams.blocks.ChartBlock'
+class ChartBlockAdapter(StructBlockAdapter):
+    js_constructor = 'wagtailcharts.blocks.ChartBlock'
 
 
     def js_args(self, block):
-        result = super(CartesianChartAdapter, self).js_args(block)
+        result = super(ChartBlockAdapter, self).js_args(block)
         meta = result[2]
         meta['colors'] = block.meta.colors
         meta['bar_chart_types'] = block.meta.bar_chart_types
@@ -114,4 +114,4 @@ class CartesianChartAdapter(StructBlockAdapter):
             css={** structblock_media._css, **{'all': ('wagtailcharts/css/jspreadsheet.css', 'wagtailcharts/css/jspreadsheet.theme.css', 'wagtailcharts/css/jsuites.css', 'wagtailcharts/css/wagtailcharts.css')}}
         )
 
-register(CartesianChartAdapter(), CartesianChartBlock)
+register(ChartBlockAdapter(), ChartBlock)

@@ -20,7 +20,7 @@ INSTALLED_APPS = [
 Add a wagtailcharts ChartBlock to one of your StreamFields:
 
 ```
-from wagtailcharts.blocks import CartesianChartBlock as ChartBlock
+from wagtailcharts.blocks import ChartBlock
 
 class ContentBlocks(StreamBlock):
     chart_block = ChartBlock()

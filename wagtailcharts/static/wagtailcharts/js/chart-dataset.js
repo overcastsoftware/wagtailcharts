@@ -38,19 +38,27 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
       }
     }
 
+    // // prepopulate the Y axis if not set
+    // let data = JSON.parse(dataSetField.value)
+    // for (let i=1; i < data.length; i++) {
+    //   if (data[i][3] === "" || data[i][3] === undefined) {
+    //     data[i][3] = 'left'
+    //   }
+    // }
+
     spread = jspreadsheet(document.getElementById(prefix + "-dataset-table"), {
       data: JSON.parse(dataSetField.value),
       columns: [
-          { type: 'text', title:'Title', width:120 },
+          { type: 'text', title:'Title', width: 120 },
           { type: 'dropdown', title:'Type', width:100, source: this.meta.bar_chart_types.map(x => {return {'id':x[0], 'name':x[1]}}) },
           { type: 'dropdown', title: 'Color', width:100, source: this.meta.colors.map(x => {return {'id':x[0], 'name':x[1], 'color': x[0]}}) },
-          //{ type: 'dropdown', title:'Y axis', width:100, source: [{'id': 'left', 'name': 'Left'}, {'id': 'right', 'name': 'Right'}] }
+          { type: 'dropdown', title:'Y axis', width:100, source: [{'id': 'left', 'name': 'Left'}, {'id': 'right', 'name': 'Right'}] }
       ],
-      minDimensions:[4,2],
+      minDimensions:[5,2],
       tableOverflow: true,
       tableWidth: "100%",
       mergeCells:{
-        A1:[3,1]
+        A1:[4,1]
       },
       updateTable: function(el, cell, x, y, source, value, id) {
         if (x == 0 && y == 0) {
@@ -65,7 +73,7 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
     return block;
   }
 }
-window.telepath.register('streams.blocks.ChartBlock', ChartDefinition);
+window.telepath.register('wagtailcharts.blocks.ChartBlock', ChartDefinition);
 
 
 $(document).ready(function(){
