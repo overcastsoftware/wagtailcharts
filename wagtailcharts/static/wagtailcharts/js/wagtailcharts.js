@@ -3,8 +3,9 @@ var charts = document.querySelectorAll('*[id^="chart-"]');
 for (i = 0; i < charts.length; ++i) {
     const chart_data = JSON.parse(charts[i].dataset.datasets);
     const chart_settings = JSON.parse(charts[i].dataset.config);
+    const chartType = charts[i].dataset.chartType;
 
-    const labels = chart_data[0].slice(sliceOffset, chart_data[0].length);
+    let labels = chart_data[0].slice(sliceOffset, chart_data[0].length);
     const datasets_raw = chart_data.slice(1, chart_data.length);
     const datasets = [];
     
@@ -16,24 +17,52 @@ for (i = 0; i < charts.length; ++i) {
       }
     }
 
-    for (j=0; j < datasets_raw.length; ++j){
-        const ds = datasets_raw[j];
-        const dataset = {
-            label: ds[0],
-            data: ds.slice(sliceOffset, ds.length),
-            borderColor: ds[2],
-            backgroundColor: ds[2],
-            type: ds[1].toLowerCase()
-        }
-        if (rightAxisEnabled) {
-            if (ds[3] === 'right') {
-                dataset.yAxisID = 'y1'
-            } else {
-                dataset.yAxisID = 'y'
+    if (['bar', 'line', 'area', 'radar', 'polarArea'].includes(chartType)) {
+
+        for (j=0; j < datasets_raw.length; j++){
+            const ds = datasets_raw[j];
+            let dataset = {
+                label: ds[0],
+                data: ds.slice(sliceOffset, ds.length),
+                borderColor: ds[2],
             }
+            if (['bar', 'line', 'area',].includes(chartType)) {
+                dataset.backgroundColor = ds[2]
+                dataset.type = ds[1].toLowerCase()
+            }
+            if (rightAxisEnabled) {
+                if (ds[3] === 'right') {
+                    dataset.yAxisID = 'y1'
+                } else {
+                    dataset.yAxisID = 'y'
+                }
+            }
+            datasets.push(dataset)
+        }
+    }
+
+    if (['pie', 'doughnut',].includes(chartType)) {
+        labels = []
+        let colors = []
+        let _datasets = []
+        
+        for (j=0; j < datasets_raw.length; j++){
+            const ds = datasets_raw[j];
+            labels.push(ds[0])
+            colors.push(ds[2])
+            
+            for (k=sliceOffset; k < ds.length; k++){
+                _datasets.push(datasets_raw[j][k])
+   
+            }
+
         }
 
-        datasets.push(dataset)
+        datasets.push({
+            borderColor: colors,
+            backgroundColor: colors,
+            data: _datasets
+        })
     }
 
     let options = {
@@ -65,21 +94,6 @@ for (i = 0; i < charts.length; ++i) {
     if (rightAxisEnabled) {
         options.scales.y1.display = true;
     }
-
-    /*
-    // legend_position: "top"
-    // show_legend: false
-    stacking: "none"
-    x_label: ""
-    y_left_label: ""
-    // y_left_max: ""
-    // y_left_min: "-1"
-    // y_left_step_size: ""
-    y_right_label: ""
-    y_right_max: ""
-    y_right_min: ""
-    y_right_step_size: ""
-    */
 
     if (chart_settings['x_label'] !== '') {
         options.scales.x.title = {
@@ -135,12 +149,20 @@ for (i = 0; i < charts.length; ++i) {
         options.plugins.stacked100 = { enable: true, replaceTooltipLabel: false }
     }
 
-    const myChart = new Chart(charts[i].getContext('2d'), {
+    let chartOptions = {
         type: 'bar',
         data: {
             labels: labels,
             datasets: datasets
-        },
-        options: options
-    });
+        }
+    }
+
+    if (['pie', 'doughnut', 'polarArea', 'radar'].includes(chartType)) {
+        chartOptions.type = chartType;
+        options.scales = undefined
+    }
+
+    chartOptions.options = options
+    
+    let myChart = new Chart(charts[i].getContext('2d'), chartOptions);
 }

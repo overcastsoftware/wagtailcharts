@@ -12,7 +12,7 @@ CHART_TYPES = (
     ('pie', 'Pie chart'),
     ('doughnut', 'Doughnut chart'),
     ('radar', 'Radar chart'),
-    ('polar', 'Polar chart'),
+#    ('polarArea', 'Polar chart'),
 )
 
 BAR_CHART_TYPES = (
