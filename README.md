@@ -37,7 +37,7 @@ class HomePage(Page):
     ]
 ```
 
-Add the ... templatetag to your template and call the `render_charts` tag just before your `</body>` closing tag.
+Add the `wagtailcharts_tags` templatetag to your template and call the `render_charts` tag just before your `</body>` closing tag.
 Please note that you must render your chart block so that the `render_charts` tag can detect the charts.
 Here is a tiny example of a page rendering template:
 
@@ -63,6 +63,25 @@ Here is a tiny example of a page rendering template:
 {% endblock %}
 ```
 
+## Customisation
+
+`ChartBlock` accepts a few extra arguments in addition to the standard `StructBlock` arguments.
+
+### `colors`
+A tuple of color tuples defining the available colors in the editor.
+
+```python
+from wagtailcharts.blocks import ChartBlock
+
+COLORS = (
+    ('#ff0000', 'Red'),
+    ('#00ff00', 'Green'),
+    ('#0000ff', 'Blue'),
+)
+
+class ContentBlocks(StreamBlock):
+    chart_block = ChartBlock(colors=COLORS)
+```
 
 ## Dependencies
 This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. Charts are rendered using [Chart.js](https://www.chartjs.org/).
