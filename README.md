@@ -63,7 +63,7 @@ Here is a tiny example of a page rendering template:
 {% endblock %}
 ```
 
-## Customisation
+## Configuration
 
 `ChartBlock` accepts a few extra arguments in addition to the standard `StructBlock` arguments.
 
