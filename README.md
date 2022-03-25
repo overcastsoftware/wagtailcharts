@@ -66,4 +66,4 @@ Here is a tiny example of a page rendering template:
 
 
 ## Dependencies
-This project relies on Jspreadsheet Community Edition for data entry and manipulation.
+This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. Charts are rendered using [Chart.js](https://www.chartjs.org/).
