@@ -20,9 +20,9 @@ COLORS = (
     ('#6f63bb', 'Blue Violet'),
 )
 
-
+CHART_TYPES = (
+    ('line', 'Línurit'),
+)
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block = ChartBlock(colors=COLORS)
-    #chart_block = ChartBlock()
-
+    chart_block = ChartBlock(colors=COLORS, chart_types=CHART_TYPES)

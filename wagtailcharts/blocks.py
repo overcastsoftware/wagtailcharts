@@ -8,14 +8,20 @@ from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.telepath import register
 
 CHART_TYPES = (
-    ('bar', 'Line/Bar/Area chart'),
-    ('pie', 'Pie chart'),
-    ('doughnut', 'Doughnut chart'),
-    ('radar', 'Radar chart'),
-#    ('polarArea', 'Polar chart'),
+    ('line', 'Line Chart'),
+    ('bar', 'Vertical Bar Chart'),
+    ('bar_horizontal', 'Horizontal Bar Chart'),
+    ('area', 'Area Chart'),
+    ('multi', 'Combo Line/Bar/Area Chart'),
+    ('pie', 'Pie Chart'),
+    ('doughnut', 'Doughnut Chart'),
+    ('radar', 'Radar Chart'),
+    ('polar', 'Polar Chart'),
+    ('scatter', 'Scatter Chart'),
+    ('bubble', 'Bubble Chart')
 )
 
-BAR_CHART_TYPES = (
+MULTI_CHART_TYPES = (
     ('bar', 'Bar'),
     ('line', 'Line'),
     ('area', 'Area'),
@@ -29,8 +35,6 @@ CHART_COLOR_CHOICES = (
     ('#8e50bd', 'Purple'),
     ('#4a4a4a', 'Grey'),
 )
-
-
 
 class SettingsStructValue(StructValue):
     
@@ -78,9 +82,16 @@ class ChartSettingsBlock(StructBlock):
 
 class ChartBlock(StructBlock):
 
+    def __init__(self, chart_types=CHART_TYPES, **kwargs):
+        super().__init__(**kwargs)
+        self.chart_types = chart_types
+        chart_type_block = ChoiceBlock(choices=chart_types, label='Chart Type', required=True, default=chart_types[0][0])
+        chart_type_block.set_name('chart_type')
+        self.child_blocks['chart_type'] = chart_type_block
+        self.child_blocks.move_to_end('chart_type', last=False)
 
     title = CharBlock()
-    chart_type = ChoiceBlock(choices=CHART_TYPES, default='bar')
+    #chart_type = ChoiceBlock(choices=self.chart_types, default='bar')
     datasets = TextBlock(default="[]")
     
     settings = ChartSettingsBlock()
@@ -90,18 +101,17 @@ class ChartBlock(StructBlock):
         label = 'Chart Block'
         template = 'wagtailcharts/blocks/chart_block.html'
         colors = CHART_COLOR_CHOICES
-        bar_chart_types = BAR_CHART_TYPES
+        multi_chart_types = MULTI_CHART_TYPES
 
 
 class ChartBlockAdapter(StructBlockAdapter):
     js_constructor = 'wagtailcharts.blocks.ChartBlock'
 
-
     def js_args(self, block):
         result = super(ChartBlockAdapter, self).js_args(block)
         meta = result[2]
         meta['colors'] = block.meta.colors
-        meta['bar_chart_types'] = block.meta.bar_chart_types
+        meta['multi_chart_types'] = block.meta.multi_chart_types
         result[2] = meta
         return result
 

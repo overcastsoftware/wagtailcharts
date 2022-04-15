@@ -50,7 +50,7 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
       data: JSON.parse(dataSetField.value),
       columns: [
           { type: 'text', title:'Title', width: 120 },
-          { type: 'dropdown', title:'Type', width:100, source: this.meta.bar_chart_types.map(x => {return {'id':x[0], 'name':x[1]}}) },
+          { type: 'dropdown', title:'Type', width:100, source: this.meta.multi_chart_types.map(x => {return {'id':x[0], 'name':x[1]}}) },
           { type: 'dropdown', title: 'Color', width:100, source: this.meta.colors.map(x => {return {'id':x[0], 'name':x[1], 'color': x[0]}}) },
           { type: 'dropdown', title:'Y axis', width:100, source: [{'id': 'left', 'name': 'Left'}, {'id': 'right', 'name': 'Right'}] }
       ],
