@@ -2,7 +2,7 @@
 
 <div class="{{ classname }} collapsible collapsed c-sf-container">
     <button type="button" class="button button-small button-chart-settings">
-        <i class="icon icon-fa-cog" aria-hidden="true"></i> Chart Settings
+        <i class="icon icon-fa-cog" aria-hidden="true"></i> {{block_definition.meta.label}}
     </button>
     <div class="collapsible-target" style="display:none;">
     {% for child in children.values %}
