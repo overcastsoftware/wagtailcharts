@@ -1,69 +1,22 @@
-const sliceOffset = 4;
 var charts = document.querySelectorAll('*[id^="chart-"]');
 for (i = 0; i < charts.length; ++i) {
-    const chart_data = JSON.parse(charts[i].dataset.datasets);
+    const chart_data = JSON.parse(charts[i].dataset.datasets).data;
+    const chart_options =  JSON.parse(charts[i].dataset.datasets).options;
     const chart_settings = JSON.parse(charts[i].dataset.config);
-    const chartType = charts[i].dataset.chartType;
+    const chartType = charts[i].dataset.chartType;  
+    const chartObj = chart_types[chartType];
 
-    let labels = chart_data[0].slice(sliceOffset, chart_data[0].length);
+    let labels = chart_data[0];
     const datasets_raw = chart_data.slice(1, chart_data.length);
-    const datasets = [];
     
+    // Check if we need a right axis
     let rightAxisEnabled = false;
-    for (let i=0; i < datasets_raw.length; i++) {
-      if (datasets_raw[i][3] === "right") {
+    if (Object.keys(chart_options).includes('yaxis') && chart_options.yaxis.includes("right")) {
         rightAxisEnabled = true;
-        break;
-      }
     }
+    
+    const datasets = chartObj.render_datasets(chart_data, chart_options);
 
-    if (['bar', 'line', 'area', 'radar', 'polarArea'].includes(chartType)) {
-
-        for (j=0; j < datasets_raw.length; j++){
-            const ds = datasets_raw[j];
-            let dataset = {
-                label: ds[0],
-                data: ds.slice(sliceOffset, ds.length),
-                borderColor: ds[2],
-            }
-            if (['bar', 'line', 'area',].includes(chartType)) {
-                dataset.backgroundColor = ds[2]
-                dataset.type = ds[1].toLowerCase()
-            }
-            if (rightAxisEnabled) {
-                if (ds[3] === 'right') {
-                    dataset.yAxisID = 'y1'
-                } else {
-                    dataset.yAxisID = 'y'
-                }
-            }
-            datasets.push(dataset)
-        }
-    }
-
-    if (['pie', 'doughnut',].includes(chartType)) {
-        labels = []
-        let colors = []
-        let _datasets = []
-        
-        for (j=0; j < datasets_raw.length; j++){
-            const ds = datasets_raw[j];
-            labels.push(ds[0])
-            colors.push(ds[2])
-            
-            for (k=sliceOffset; k < ds.length; k++){
-                _datasets.push(datasets_raw[j][k])
-   
-            }
-
-        }
-
-        datasets.push({
-            borderColor: colors,
-            backgroundColor: colors,
-            data: _datasets
-        })
-    }
 
     let options = {
         responsive: true,
@@ -73,13 +26,11 @@ for (i = 0; i < charts.length; ++i) {
             },
             y: {
                 beginAtZero: true,
-                type: 'linear',
                 display: true,
                 position: 'left'
             },
             y1: {
                 beginAtZero: true,
-                type: 'linear',
                 display: false,
                 position: 'right'
             },
@@ -150,19 +101,16 @@ for (i = 0; i < charts.length; ++i) {
     }
 
     let chartOptions = {
-        type: 'bar',
+        type: chart_types[chartType].chartjs_chart_type,
         data: {
             labels: labels,
             datasets: datasets
         }
     }
 
-    if (['pie', 'doughnut', 'polarArea', 'radar'].includes(chartType)) {
-        chartOptions.type = chartType;
-        options.scales = undefined
-    }
+    chartOptions.options = {...options, ...chart_types[chartType].chart_options}
 
-    chartOptions.options = options
+    console.log(chartOptions)
     
     let myChart = new Chart(charts[i].getContext('2d'), chartOptions);
 }
