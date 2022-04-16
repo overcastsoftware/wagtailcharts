@@ -17,8 +17,8 @@ CHART_TYPES = (
     ('doughnut', 'Doughnut Chart'),
     ('radar', 'Radar Chart'),
     ('polar', 'Polar Chart'),
-    ('scatter', 'Scatter Chart'),
-    ('bubble', 'Bubble Chart')
+    #('scatter', 'Scatter Chart'),
+    #('bubble', 'Bubble Chart')
 )
 
 MULTI_CHART_TYPES = (

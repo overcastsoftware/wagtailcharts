@@ -46,9 +46,21 @@ function pieDataSet(data, options){
 
 function areaDataSet(data, options) {
     datasets = simpleDataSet(data, options);
-    console.log(datasets)
     for (j=0; j < datasets.length; j++){
        datasets[j].fill = 'origin';
+    }
+    return datasets
+}
+
+function multiDataSet(data, options) {
+    datasets = simpleDataSet(data, options);
+    for (j=0; j < datasets.length; j++){
+        if(options.type[j+1] == 'area'){
+            datasets[j].type = 'line';
+            datasets[j].fill = 'origin';
+        }else{
+            datasets[j].type = options.type[j+1];
+        }
     }
     return datasets
 }
@@ -88,9 +100,8 @@ chart_types = {
         title: 'Combo Line/Bar/Area Chart',
         chartjs_chart_type:'bar',
         dataset_options: ['type', 'yaxis'],
-        chart_options: {
-
-        }
+        chart_options: {},
+        render_datasets: multiDataSet,
     },
     pie: {
         title: 'Pie Chart',
