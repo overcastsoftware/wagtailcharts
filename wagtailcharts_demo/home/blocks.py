@@ -25,4 +25,4 @@ CHART_TYPES = (
 )
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block = ChartBlock(colors=COLORS, chart_types=CHART_TYPES)
+    chart_block = ChartBlock(colors=COLORS)
