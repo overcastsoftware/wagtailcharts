@@ -5,18 +5,14 @@ for (i = 0; i < charts.length; ++i) {
     const chart_settings = JSON.parse(charts[i].dataset.config);
     const chartType = charts[i].dataset.chartType;  
     const chartObj = chart_types[chartType];
-
-    let labels = chart_data[0];
-    const datasets_raw = chart_data.slice(1, chart_data.length);
+    const datasets = chartObj.render_datasets(chart_data, chart_options);
+    const labels = chartObj.render_labels(chart_data, chart_options);
     
     // Check if we need a right axis
     let rightAxisEnabled = false;
     if (Object.keys(chart_options).includes('yaxis') && chart_options.yaxis.includes("right")) {
         rightAxisEnabled = true;
     }
-    
-    const datasets = chartObj.render_datasets(chart_data, chart_options);
-
 
     let options = {
         responsive: true,
@@ -41,9 +37,6 @@ for (i = 0; i < charts.length; ++i) {
                 display: chart_settings['show_legend']
             }
         }
-    }
-    if (rightAxisEnabled) {
-        options.scales.y1.display = true;
     }
 
     if (chart_settings['x_label'] !== '') {
@@ -72,6 +65,7 @@ for (i = 0; i < charts.length; ++i) {
     }
 
     if (rightAxisEnabled) {
+        options.scales.y1.display = true;
 
         if (chart_settings['y_right_min'] !== '') {
             options.scales.y1.min = parseFloat(chart_settings['y_right_min'])
@@ -109,8 +103,6 @@ for (i = 0; i < charts.length; ++i) {
     }
 
     chartOptions.options = {...options, ...chart_types[chartType].chart_options}
-
-    console.log(chartOptions)
     
     let myChart = new Chart(charts[i].getContext('2d'), chartOptions);
 }

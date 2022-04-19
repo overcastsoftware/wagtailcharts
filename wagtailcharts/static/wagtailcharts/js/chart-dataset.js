@@ -95,6 +95,7 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
         minDimensions:[columns.length+1,2],
         tableOverflow: true,
         tableWidth: "100%",
+        rowDrag: true,
         mergeCells:{
           A1:[columns.length,1]
         },

@@ -25,10 +25,13 @@ function pieDataSet(data, options){
     let labels = []
     let colors = []
     let _datasets = []
+
+    console.log(options)
+    console.log(data)
     
     for (j=1; j < data.length; j++){
         const ds = data[j];
-        labels.push(options.title[j],)
+        labels.push(options.title[j])
         colors.push(options.color[j])
         
         for (k=0; k < ds.length; k++){
@@ -41,6 +44,7 @@ function pieDataSet(data, options){
         backgroundColor: colors,
         data: _datasets
     })
+    console.log(datasets)
     return datasets
 }
 
@@ -65,6 +69,14 @@ function multiDataSet(data, options) {
     return datasets
 }
 
+function first_row_labels(data, options){
+    return data[0]
+}
+
+function title_labels(data, options){
+    return options.title.slice(1);
+}
+
 chart_types = {
     line: {
         title: 'Line Chart',
@@ -72,6 +84,7 @@ chart_types = {
         dataset_options: ['yaxis'],
         chart_options: {},
         render_datasets: simpleDataSet,
+        render_labels: first_row_labels,
     },
     bar: {
         title: 'Bar Chart',
@@ -79,6 +92,7 @@ chart_types = {
         dataset_options: ['yaxis'],
         chart_options: {},
         render_datasets: simpleDataSet,
+        render_labels: first_row_labels,
     },
     bar_horizontal: {
         title: 'Horizontal Bar Chart',
@@ -88,6 +102,7 @@ chart_types = {
             indexAxis: 'y',
         },
         render_datasets: simpleDataSet,
+        render_labels: first_row_labels,
     },
     area: {
         title: 'Area Chart',
@@ -95,6 +110,7 @@ chart_types = {
         dataset_options: [],
         chart_options: {},
         render_datasets: areaDataSet,
+        render_labels: first_row_labels,
     },
     multi: {
         title: 'Combo Line/Bar/Area Chart',
@@ -102,20 +118,27 @@ chart_types = {
         dataset_options: ['type', 'yaxis'],
         chart_options: {},
         render_datasets: multiDataSet,
+        render_labels: first_row_labels,
     },
     pie: {
         title: 'Pie Chart',
         chartjs_chart_type:'pie',
         dataset_options: [],
-        chart_options: {},
+        chart_options: {
+            scales: undefined
+        },
         render_datasets: pieDataSet,
+        render_labels: title_labels,
     },
     doughnut: {
         title: 'Doughnut Chart',
         chartjs_chart_type:'pie',
         dataset_options: [],
-        chart_options: {},
+        chart_options: {
+            scales: undefined
+        },
         render_datasets: pieDataSet,
+        render_labels: title_labels,
     },
     radar: {
         title: 'Radar Chart',
@@ -125,6 +148,7 @@ chart_types = {
             scales: undefined
         },
         render_datasets: simpleDataSet,
+        render_labels: first_row_labels,
     },
     polar: {
         title: 'Polar Chart',
@@ -134,6 +158,7 @@ chart_types = {
             scales: undefined
         },
         render_datasets: simpleDataSet,
+        render_labels: first_row_labels,
     },
     // scatter: {
     //     title: 'Scatter Chart',
