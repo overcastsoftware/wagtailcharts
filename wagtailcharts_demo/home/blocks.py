@@ -23,9 +23,10 @@ COLORS = (
 )
 
 CHART_TYPES = (
-    ('line', 'Línurit'),
+    ('line', 'Line chart with custom title'),
 )
 
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block = ChartBlock(colors=COLORS, chart_types=CHART_TYPES)
+    chart_block_custom = ChartBlock(label="My custom chart block", colors=COLORS, chart_types=CHART_TYPES)
+    chart_block = ChartBlock()
