@@ -92,7 +92,7 @@ class ChartBlock(StructBlock):
 
     title = CharBlock()
     #chart_type = ChoiceBlock(choices=self.chart_types, default='bar')
-    datasets = TextBlock(default="[]")
+    datasets = TextBlock(default='{"data":[], "options":{}}')
     
     settings = ChartSettingsBlock()
 

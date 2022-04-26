@@ -9,7 +9,7 @@ services:
     container_name: "wagtailchartsweb"
     build: ./
     working_dir: /code/wagtailcharts_demo
-    command: ./manage.py runserver 0.0.0.0:8000
+    command: bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
     restart: "no"
     volumes:
       - ./wagtailcharts_demo:/code/wagtailcharts_demo:delegated,rw
