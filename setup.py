@@ -32,6 +32,7 @@ setup(
     url='https://github.com/overcast/wagtailcharts/',
     author='Overcast',
     author_email='hallo@overcast.is',
+    long_description_content_type="text/markdown",
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',

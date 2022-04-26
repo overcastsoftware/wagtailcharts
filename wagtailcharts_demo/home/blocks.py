@@ -1,3 +1,5 @@
+from sre_constants import CHARSET
+
 from wagtail.core.blocks import (CharBlock, ChoiceBlock, RichTextBlock,
                                  StreamBlock, StructBlock, TextBlock)
 from wagtail.embeds.blocks import EmbedBlock
@@ -23,6 +25,7 @@ COLORS = (
 CHART_TYPES = (
     ('line', 'Línurit'),
 )
+
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block = ChartBlock(colors=COLORS)
+    chart_block = ChartBlock(colors=COLORS, chart_types=CHART_TYPES)

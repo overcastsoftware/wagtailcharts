@@ -83,6 +83,38 @@ class ContentBlocks(StreamBlock):
     chart_block = ChartBlock(colors=COLORS)
 ```
 
+### `chart_types`
+
+You can override the default chart types available for your `ChartBlock` instance:
+
+```python
+from wagtailcharts.blocks import ChartBlock
+
+CHART_TYPES = (
+    ('line', 'Custom title for line chart'),
+)
+
+class ContentBlocks(StreamBlock):
+    chart_block = ChartBlock(chart_types=CHART_TYPES)
+```
+
+The default types are:
+
+```python
+CHART_TYPES = (
+    ('line', 'Line Chart'),
+    ('bar', 'Vertical Bar Chart'),
+    ('bar_horizontal', 'Horizontal Bar Chart'),
+    ('area', 'Area Chart'),
+    ('multi', 'Combo Line/Bar/Area Chart'),
+    ('pie', 'Pie Chart'),
+    ('doughnut', 'Doughnut Chart'),
+    ('radar', 'Radar Chart'),
+    ('polar', 'Polar Chart'),
+)
+```
+
+
 ## Dependencies
 * This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. 
 * Charts are rendered using [Chart.js](https://www.chartjs.org/). 
