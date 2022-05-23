@@ -119,3 +119,13 @@ CHART_TYPES = (
 * This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. 
 * Charts are rendered using [Chart.js](https://www.chartjs.org/). 
 * 100% stacked bar charts use a plugin [https://github.com/y-takey/chartjs-plugin-stacked100](https://github.com/y-takey/chartjs-plugin-stacked100)
+
+
+
+# Release notes
+
+## Version 0.2
+* Added support for Wagtail 3.0
+
+## Version 0.1
+* Initial release
