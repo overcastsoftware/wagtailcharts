@@ -4,8 +4,6 @@ from setuptools import setup
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
-with open(os.path.join(os.path.dirname(__file__), 'RELEASE_NOTES.md')) as release_notes:
-    RELEASE_NOTES = release_notes.read()
 
 
 # allow setup.py to be run from any path
@@ -31,7 +29,7 @@ setup(
     include_package_data=True,
     license='MIT',
     description='Chart.js charts for Wagtail',
-    long_description=README + RELEASE_NOTES,
+    long_description=README,
     url='https://github.com/overcast/wagtailcharts/',
     author='Overcast',
     author_email='hallo@overcast.is',
