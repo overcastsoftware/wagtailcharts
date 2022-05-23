@@ -4,7 +4,13 @@ from django import forms
 from django.utils.functional import cached_property
 from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                                  StructBlock, StructValue, TextBlock)
-from wagtail.core.blocks.struct_block import StructBlockAdapter
+import wagtail
+
+if wagtail.VERSION[0] < 3:
+    from wagtail.core.blocks.struct_block import StructBlockAdapter
+else:
+    from wagtail.blocks.struct_block import StructBlockAdapter
+
 from wagtail.core.telepath import register
 
 CHART_TYPES = (
