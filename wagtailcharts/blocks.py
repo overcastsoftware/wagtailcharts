@@ -3,7 +3,8 @@ import json
 from django import forms
 from django.utils.functional import cached_property
 from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
-                                 StructBlock, StructValue, TextBlock)
+                                 IntegerBlock, StructBlock, StructValue,
+                                 TextBlock)
 from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.telepath import register
 
@@ -17,6 +18,7 @@ CHART_TYPES = (
     ('doughnut', 'Doughnut Chart'),
     ('radar', 'Radar Chart'),
     ('polar', 'Polar Chart'),
+    ('waterfall', 'Waterfall Chart'),
     #('scatter', 'Scatter Chart'),
     #('bubble', 'Bubble Chart')
 )
@@ -44,35 +46,44 @@ class SettingsStructValue(StructValue):
 
 
 class ChartSettingsBlock(StructBlock):
-    y_left_min = CharBlock(required=False, label='Left Y axis minimum value')
-    y_left_max = CharBlock(required=False, label='Left Y axis maximum value')
-    y_left_step_size = CharBlock(required=False, label='Left Y axis step size')
-    y_left_label = CharBlock(required=False, label='Left Y axis label')
-
-    y_right_min = CharBlock(required=False, label='Right Y axis minimum value')
-    y_right_max = CharBlock(required=False, label='Right Y axis maximum value')
-    y_right_step_size = CharBlock(required=False, label='Right Y axis step size')
-    y_right_label = CharBlock(required=False, label='Right Y axis label')
-    
-    x_label = CharBlock(required=False, label='X axis label')
-
-    stacking = ChoiceBlock(
-        choices=(
-            ('none', 'No stacking'),
-            ('stacked', 'Stacked'),
-            ('stacked_100', 'Stacked 100%'),
-        ),
-        default='none'
-    )
-    show_legend = BooleanBlock(default=False, required=False)
+    # General Settings
+    show_legend = BooleanBlock(default=False, required=False, label="Show legend", group="General")
     legend_position = ChoiceBlock(
         choices=(
             ('top', 'Top'),
             ('bottom', 'Bottom'),
             ('left', 'Left'),
             ('right', 'Right'),
-        ), default = 'top',
+        ), default = 'top', label="Legend position", group="General"
     )
+    show_values_on_chart = BooleanBlock(default=False, required=False, label="Show values on chart", group="General")
+    precision = IntegerBlock(default=1, label="Precision in labels/tooltips", group="General")
+    show_grid = BooleanBlock(default=True, required=False, label="Show Chart Grid", group="General")
+    x_label = CharBlock(required=False, label='X axis label', group="General")
+    stacking = ChoiceBlock(
+        choices=(
+            ('none', 'No stacking'),
+            ('stacked', 'Stacked'),
+            ('stacked_100', 'Stacked 100%'),
+        ),
+        default='none', label="Stacking", group="General"
+    )
+    # Left Axis settings
+    y_left_min = CharBlock(required=False, label='Left Y axis minimum value', group="Left_Axis")
+    y_left_max = CharBlock(required=False, label='Left Y axis maximum value', group="Left_Axis")
+    y_left_step_size = CharBlock(required=False, label='Left Y axis step size', group="Left_Axis")
+    y_left_label = CharBlock(required=False, label='Left Y axis label', group="Left_Axis")
+    y_left_data_type = ChoiceBlock(choices=(('number', 'Numerical'), ('percentage', 'Percentage')), default='number', label="Left Y axis data type", required=False, group="Left_Axis")
+    y_left_precision = IntegerBlock(default=0, label="Left Y axis tick precision", group="Left_Axis")
+    y_left_show = BooleanBlock(default=True, required=False, label="Show left axis numbers", group="Left_Axis")
+    # Right Axis Settings
+    y_right_min = CharBlock(required=False, label='Right Y axis minimum value', group="Right_Axis")
+    y_right_max = CharBlock(required=False, label='Right Y axis maximum value', group="Right_Axis")
+    y_right_step_size = CharBlock(required=False, label='Right Y axis step size', group="Right_Axis")
+    y_right_label = CharBlock(required=False, label='Right Y axis label', group="Right_Axis")
+    y_right_data_type = ChoiceBlock(choices=(('number', 'Numerical'), ('percentage', 'Percentage')), default='number', label="Right Y axis data type", required=False, group="Right_Axis")
+    y_right_precision = IntegerBlock(default=0, label="Right Y axis tick precision", group="Right_Axis")
+    y_right_show = BooleanBlock(default=True, required=False, label="Show right axis numbers", group="Right_Axis")
 
     class Meta:
         form_template = 'wagtailcharts/blocks/settings.html'
@@ -90,8 +101,7 @@ class ChartBlock(StructBlock):
         self.child_blocks['chart_type'] = chart_type_block
         self.child_blocks.move_to_end('chart_type', last=False)
 
-    title = CharBlock()
-    #chart_type = ChoiceBlock(choices=self.chart_types, default='bar')
+    title = CharBlock(required=False)
     datasets = TextBlock(default='{"data":[], "options":{}}')
     
     settings = ChartSettingsBlock()

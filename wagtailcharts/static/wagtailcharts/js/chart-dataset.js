@@ -120,14 +120,14 @@ window.telepath.register('wagtailcharts.blocks.ChartBlock', ChartDefinition);
 
 
 $(document).ready(function(){
-  $(document).on('click', '.collapsible button', function(){
-      var $target = $(this).parent().find('.collapsible-target');
-
-      if (!$(this).parent().hasClass('collapsed')) {
-          $(this).parent().addClass('collapsed');
+  $(document).on('click', 'button.button-chart-settings', function(){
+      var t = $(this).data('target');
+      var $target = $(this).parent().find('#'+t+" .collapsible-target")
+      if (!$target.parent().hasClass('collapsed')) {
+          $target.parent().addClass('collapsed');
           $target.hide('fast');
       } else {
-          $(this).parent().removeClass('collapsed');
+          $target.parent().removeClass('collapsed');
           $target.show('fast');
       }
   });
