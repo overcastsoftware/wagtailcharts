@@ -111,6 +111,7 @@ CHART_TYPES = (
     ('doughnut', 'Doughnut Chart'),
     ('radar', 'Radar Chart'),
     ('polar', 'Polar Chart'),
+    ('waterfall', 'Waterfall Chart')
 )
 ```
 
@@ -119,10 +120,21 @@ CHART_TYPES = (
 * This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. 
 * Charts are rendered using [Chart.js](https://www.chartjs.org/). 
 * 100% stacked bar charts use a plugin [https://github.com/y-takey/chartjs-plugin-stacked100](https://github.com/y-takey/chartjs-plugin-stacked100)
-
+* Datalabels use a plugin [https://chartjs-plugin-datalabels.netlify.app] (https://chartjs-plugin-datalabels.netlify.app)
 
 
 # Release notes
+
+## Version 0.3
+* Added Waterfall Chart
+* Added DataLabels
+* Added options for:
+** grid display
+** axis display
+** y tick precision
+** datalabel and tooltip precision
+* Added grouping of options into multiple collapsible panels with buttons
+* Multiple bugfixes
 
 ## Version 0.2
 * Added support for Wagtail 3.0

@@ -1,10 +1,9 @@
-function simpleDataSet(data, options){
+function simpleDataSet(data_array, options){
     let datasets = [];
-    for (j=1; j < data.length; j++){
-        const ds = data[j];
+    for (j=1; j < data_array.length; j++){
         let dataset = {
             label: options.title[j],
-            data: ds,
+            data: data_array[j],
             borderColor: options.color[j],
             backgroundColor: options.color[j]+"cc",
         }
@@ -25,9 +24,6 @@ function pieDataSet(data, options){
     let labels = []
     let colors = []
     let _datasets = []
-
-    console.log(options)
-    console.log(data)
     
     for (j=1; j < data.length; j++){
         const ds = data[j];
@@ -44,7 +40,6 @@ function pieDataSet(data, options){
         backgroundColor: colors,
         data: _datasets
     })
-    console.log(datasets)
     return datasets
 }
 
@@ -69,6 +64,32 @@ function multiDataSet(data, options) {
     return datasets
 }
 
+
+function waterfallDataSet(data, options){
+    let datasets = [];
+    let labels = []
+    let colors = []
+    let _datasets = []
+    
+    for (j=1; j < data.length; j++){
+        const ds = data[j];
+        labels.push(options.title[j])
+        colors.push(options.color[j])
+        if(j === 1 || j === data.length-1){
+            _datasets.push(data[j][0])
+        }else{
+            _datasets.push([data[j-1][0], data[j][0]])
+        }
+    }
+
+    datasets.push({
+        borderColor: colors,
+        backgroundColor: colors,
+        data: _datasets,
+    })
+    return datasets
+}
+
 function first_row_labels(data, options){
     return data[0]
 }
@@ -77,12 +98,34 @@ function title_labels(data, options){
     return options.title.slice(1);
 }
 
+function parse_datalabels_value(context){
+    if (context.dataIndex === 0 || context.dataIndex === context.dataset.data.length -1) {
+        value = (parseFloat(context.dataset.data[context.dataIndex])*1000)/1000
+    }else{
+        data = context.dataset.data[context.dataIndex]
+        if(Array.isArray(data) && data.length == 2){
+            value = (parseFloat(data[1])*1000-parseFloat(data[0])*1000)/1000
+        }else{
+            value = data
+        }
+    }
+    return value
+}
+
 chart_types = {
     line: {
         title: 'Line Chart',
         chartjs_chart_type:'line',
         dataset_options: ['yaxis'],
-        chart_options: {},
+        chart_options: {
+            plugins:{
+                datalabels: {
+                    offset: 3,
+                    align: 'end',
+                    anchor: 'end',
+                }
+            }
+        },
         render_datasets: simpleDataSet,
         render_labels: first_row_labels,
     },
@@ -90,7 +133,20 @@ chart_types = {
         title: 'Bar Chart',
         chartjs_chart_type:'bar',
         dataset_options: ['yaxis'],
-        chart_options: {},
+        chart_options: {
+            plugins:{
+                datalabels: {
+                    align: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    },
+                    anchor: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    }, 
+                }
+            }
+        },
         render_datasets: simpleDataSet,
         render_labels: first_row_labels,
     },
@@ -100,9 +156,22 @@ chart_types = {
         dataset_options: [],
         chart_options: {
             indexAxis: 'y',
+            plugins:{
+                datalabels: {
+                    offset: 5,
+                    align: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    },
+                    anchor: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    }, 
+                }
+            }
         },
-        render_datasets: simpleDataSet,
-        render_labels: first_row_labels,
+        render_datasets: pieDataSet,
+        render_labels: title_labels,
     },
     area: {
         title: 'Area Chart',
@@ -160,6 +229,32 @@ chart_types = {
         render_datasets: simpleDataSet,
         render_labels: first_row_labels,
     },
+    waterfall: {
+        title: 'Waterfall Chart',
+        chartjs_chart_type: 'bar',
+        dataset_options: [],
+        chart_options: {
+            plugins: {
+                datalabels: {
+                    offset: 5,
+                    color: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? '#8d0a0a' : '#1c5661';
+                    },
+                    align: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    },
+                    anchor: function(context) {
+                        var value = parse_datalabels_value(context);
+                        return value < 0 ? 'start' : 'end';
+                    },  
+                }                  
+            }
+        },
+        render_datasets: waterfallDataSet,
+        render_labels: title_labels,
+    }
     // scatter: {
     //     title: 'Scatter Chart',
     //     chartjs_chart_type:'scatter',
