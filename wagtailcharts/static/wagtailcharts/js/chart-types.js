@@ -36,7 +36,6 @@ function pieDataSet(data, options){
     }
 
     datasets.push({
-        borderColor: colors,
         backgroundColor: colors,
         data: _datasets
     })
