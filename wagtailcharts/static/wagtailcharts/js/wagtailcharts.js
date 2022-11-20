@@ -245,8 +245,16 @@ for (i = 0; i < charts.length; ++i) {
         },
     }
     
-    if (chart_settings['show_values_on_chart']){
+    if (chart_settings['show_values_on_chart']) {
         chartOptions.plugins = [ChartDataLabels]
+        if (chart_settings['stacking'] === 'stacked' || chart_settings['stacking'] === 'stacked_100') {
+            options.plugins.datalabels.formatter = function (value) {
+                if(parseFloat(value) === 0.0){
+                    return ''
+                }
+                return value
+            }
+        }
     }
 
     if (chartType == 'bar_horizontal'){
