@@ -232,6 +232,11 @@ for (i = 0; i < charts.length; ++i) {
         options.scales.y1.grid.lineWidth = function(context){ return context.tick && context.tick.value == 0 ? 1 : 0 }
     }
 
+    if (chartType == 'pie' || chartType == 'doughnut'){
+        options.borderWidth = chart_settings['pie_border_width'];
+        options.borderColor = chart_settings['pie_border_color'];
+    }
+
     let chartOptions = {
         type: chart_types[chartType].chartjs_chart_type,
         data: {
@@ -240,8 +245,16 @@ for (i = 0; i < charts.length; ++i) {
         },
     }
     
-    if (chart_settings['show_values_on_chart']){
+    if (chart_settings['show_values_on_chart']) {
         chartOptions.plugins = [ChartDataLabels]
+        if (chart_settings['stacking'] === 'stacked' || chart_settings['stacking'] === 'stacked_100') {
+            options.plugins.datalabels.formatter = function (value) {
+                if(parseFloat(value) === 0.0){
+                    return ''
+                }
+                return value
+            }
+        }
     }
 
     if (chartType == 'bar_horizontal'){

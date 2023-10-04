@@ -91,6 +91,10 @@ class ChartSettingsBlock(StructBlock):
     y_right_precision = IntegerBlock(default=0, label="Right Y axis tick precision", group="Right_Axis")
     y_right_show = BooleanBlock(default=True, required=False, label="Show right axis numbers", group="Right_Axis")
 
+    # Pie/Doughnut Chart settings
+    pie_border_width = IntegerBlock(default=2, label="Width of pie slice border", group="Pie_Chart")
+    pie_border_color = CharBlock(default="#fff", label="Color of pie slice border", group="Pie_Chart")
+    
     class Meta:
         form_template = 'wagtailcharts/blocks/settings.html'
         label = 'Chart Settings'
