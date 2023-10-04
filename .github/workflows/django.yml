@@ -13,10 +13,18 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
-            wagtail: 'wagtail==2.15.5'
           - python: '3.10'
-            wagtail: 'wagtail>=4.0,<4.1'
+            wagtail: 'wagtail<5.2'
+          - python: '3.11'
+            wagtail: 'wagtail<5.2'
+          - python: '3.10'
+            wagtail: 'wagtail<5.1'
+          - python: '3.11'
+            wagtail: 'wagtail<5.1'
+          - python: '3.10'
+            wagtail: 'wagtail<4.3'
+          - python: '3.11'
+            wagtail: 'wagtail<4.3'
 
     runs-on: 'ubuntu-latest'
 
