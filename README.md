@@ -125,6 +125,11 @@ CHART_TYPES = (
 
 # Release notes
 
+## Version 0.3.1
+* Added options for border width and border color for pie charts
+* Added support for Wagtail 5
+* Removed support for Wagtail <3
+
 ## Version 0.3
 * Added Waterfall Chart
 * Added DataLabels
