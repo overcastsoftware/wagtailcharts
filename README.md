@@ -134,10 +134,10 @@ CHART_TYPES = (
 * Added Waterfall Chart
 * Added DataLabels
 * Added options for:
-** grid display
-** axis display
-** y tick precision
-** datalabel and tooltip precision
+  * grid display
+  * axis display
+  * y tick precision
+  * datalabel and tooltip precision
 * Added grouping of options into multiple collapsible panels with buttons
 * Multiple bugfixes
 
