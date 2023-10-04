@@ -2,17 +2,13 @@ import json
 
 from django import forms
 from django.utils.functional import cached_property
-from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                                  IntegerBlock, StructBlock, StructValue,
                                  TextBlock)
 import wagtail
 
-if wagtail.VERSION[0] < 3:
-    from wagtail.core.blocks.struct_block import StructBlockAdapter
-else:
-    from wagtail.blocks.struct_block import StructBlockAdapter
-
-from wagtail.core.telepath import register
+from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.telepath import register
 
 CHART_TYPES = (
     ('line', 'Line Chart'),
