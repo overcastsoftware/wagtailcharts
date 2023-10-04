@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 # Package dependencies
 install_requires = [
-    'wagtail>=1.8',
+    'wagtail>=3.0',
 ]
 
 # Testing dependencies
@@ -24,7 +24,7 @@ documentation_extras = [
 
 setup(
     name='wagtailcharts',
-    version='0.2.1',
+    version='0.3.1',
     packages=['wagtailcharts'],
     include_package_data=True,
     license='MIT',
