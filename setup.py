@@ -30,7 +30,7 @@ setup(
     license='MIT',
     description='Chart.js charts for Wagtail',
     long_description=README,
-    url='https://github.com/overcast/wagtailcharts/',
+    url='https://github.com/overcastsoftware/wagtailcharts/',
     author='Overcast',
     author_email='hallo@overcast.is',
     long_description_content_type="text/markdown",
