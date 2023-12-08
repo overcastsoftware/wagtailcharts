@@ -202,9 +202,10 @@ for (i = 0; i < charts.length; ++i) {
     }
 
     if (chart_settings['html_legend']) {
+        charts[i].insertAdjacentHTML('afterend', '<div id="'+charts[i].id.replace('chart', 'chart-legend-container')+'"></div>');
         options.plugins.legend.display = false;
         options.plugins.htmlLegend = {
-            containerID: charts[i].id+'-legend-container',
+            containerID: charts[i].id.replace('chart', 'chart-legend-container'),
         }
     }
 
@@ -328,14 +329,15 @@ for (i = 0; i < charts.length; ++i) {
             labels: labels,
             datasets: datasets
         },
+        plugins: []
     }
 
     if (chart_settings['html_legend']) {
-        chartOptions.plugins = [htmlLegendPlugin]
+        chartOptions.plugins = [...chartOptions.plugins, htmlLegendPlugin]
     }
     
     if (chart_settings['show_values_on_chart']) {
-        chartOptions.plugins = [ChartDataLabels]
+        chartOptions.plugins = [...chartOptions.plugins, ChartDataLabels]
         if (chart_settings['stacking'] === 'stacked' || chart_settings['stacking'] === 'stacked_100') {
             options.plugins.datalabels.formatter = function (value) {
                 if(parseFloat(value) === 0.0){
