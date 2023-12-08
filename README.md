@@ -125,6 +125,10 @@ CHART_TYPES = (
 
 # Release notes
 
+## Version 0.3.2
+* Added support for external HTML legend
+* Fixed bug in doughnut chart
+
 ## Version 0.3.1
 * Added options for border width and border color for pie charts
 * Added support for Wagtail 5
