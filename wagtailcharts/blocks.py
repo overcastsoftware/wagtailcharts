@@ -50,6 +50,7 @@ class SettingsStructValue(StructValue):
 class ChartSettingsBlock(StructBlock):
     # General Settings
     show_legend = BooleanBlock(default=False, required=False, label="Show legend", group="General")
+    html_legend = BooleanBlock(default=False, required=False, label="Use HTML legend", group="General")
     legend_position = ChoiceBlock(
         choices=(
             ('top', 'Top'),

@@ -200,7 +200,7 @@ chart_types = {
     },
     doughnut: {
         title: 'Doughnut Chart',
-        chartjs_chart_type:'pie',
+        chartjs_chart_type:'doughnut',
         dataset_options: [],
         chart_options: {
             scales: undefined

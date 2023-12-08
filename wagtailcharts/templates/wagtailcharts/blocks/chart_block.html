@@ -1,2 +1,5 @@
 <h3>{{self.title}}</h3>
 <canvas id="chart-{{block.id}}" data-datasets="{{self.datasets}}" data-config="{{self.settings.config}}" data-chart-type="{{self.chart_type}}"></canvas>
+{% if self.settings.html_legend %}
+    <div class="chart-legend" id="chart-{{block.id}}-legend-container"></div>
+{% endif %}
