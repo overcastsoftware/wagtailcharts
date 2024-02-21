@@ -72,6 +72,8 @@ class ChartSettingsBlock(StructBlock):
         ),
         default='none', label="Stacking", group="General"
     )
+    unit_override = CharBlock(required=False, label='Unit override', group="General")
+    
     # Left Axis settings
     y_left_min = CharBlock(required=False, label='Left Y axis minimum value', group="Left_Axis")
     y_left_max = CharBlock(required=False, label='Left Y axis maximum value', group="Left_Axis")
