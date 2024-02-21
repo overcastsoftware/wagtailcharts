@@ -59,6 +59,7 @@ class ChartSettingsBlock(StructBlock):
             ('right', 'Right'),
         ), default = 'top', label="Legend position", group="General"
     )
+    reverse_legend = BooleanBlock(default=False, required=False, label="Reverse legend", group="General")
     show_values_on_chart = BooleanBlock(default=False, required=False, label="Show values on chart", group="General")
     precision = IntegerBlock(default=1, label="Precision in labels/tooltips", group="General")
     show_grid = BooleanBlock(default=True, required=False, label="Show Chart Grid", group="General")

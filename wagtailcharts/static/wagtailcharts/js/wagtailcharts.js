@@ -169,7 +169,8 @@ for (i = 0; i < charts.length; ++i) {
         plugins: {
             legend: {
                 position: chart_settings['legend_position'],
-                display: chart_settings['show_legend']
+                display: chart_settings['show_legend'],
+                reverse: chart_settings['reverse_legend']
             },
             tooltip: {
                 callbacks: {
@@ -303,13 +304,10 @@ for (i = 0; i < charts.length; ++i) {
     if (chart_settings['stacking'] === 'stacked') {
         options.scales.x.stacked = true
         options.scales.y.stacked = true
-        options.plugins.legend.reverse = true;
-        datasets = datasets.reverse();
     }
+
     if (chart_settings['stacking'] === 'stacked_100') {
         options.plugins.stacked100 = { enable: true, replaceTooltipLabel: false }
-        options.plugins.legend.reverse = true;
-        datasets = datasets.reverse();
     }
 
     if (chart_settings['show_grid'] === false){
