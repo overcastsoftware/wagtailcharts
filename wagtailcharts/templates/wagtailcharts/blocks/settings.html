@@ -1,21 +1,24 @@
 {% load wagtailadmin_tags wagtailcharts_tags %}
 {% regroup children.values|dictsort:"block.meta.group" by block.meta.group as children_groups %}
-{% for group in children_groups %}
-<button type="button" class="button button-small button-chart-settings" data-target="settings-{{group.grouper}}" style="display: inline;">
-    <i class="icon icon-fa-cog" aria-hidden="true"></i> {{group.grouper|addspace}} Options
-</button>
-{% endfor %}
-{% for group in children_groups %}
-<div id="settings-{{group.grouper}}" class="{{ classname }} collapsible collapsed c-sf-container">
-    <div class="collapsible-target" style="display:none;">
-    {% for child in group.list %}
-        <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
-            {% if child.block.label %}
-                <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
-            {% endif %}
-            {{ child.render_form }}
-        </div>
+
+
+    {% for group in children_groups %}
+    <button type="button" class="button button-small button-chart-settings" data-target="settings-{{group.grouper}}" style="margin-top: 15px; display: inline-block;">
+        <i class="icon icon-fa-cog" aria-hidden="true"></i> {{group.grouper|addspace}} Options
+    </button>
     {% endfor %}
+
+    {% for group in children_groups %}
+    <div id="settings-{{group.grouper}}" class="{{ classname }} collapsible collapsed c-sf-container">
+        <div class="collapsible-target" style="display:none;">
+            {% for child in group.list %}
+            <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
+                {% if child.block.label %}
+                <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+                {% endif %}
+                {{ child.render_form }}
+            </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% endfor %}
+    {% endfor %}
