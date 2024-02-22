@@ -1,3 +1,12 @@
+## Version 0.4
+* Added support for Wagtail 6.0
+* Tested against django 5.0
+* Breaking changes to stacked charts, they were always reversing the dataset and legend.
+  It is now optional to reverse the legend for the chart with a setting.
+
+## Version 0.3.3
+* Fixed a regression from release 0.3.2 when using multiple charts on same page.
+
 ## Version 0.3.2
 * Added support for external HTML legend
 * Fixed bug in doughnut chart
