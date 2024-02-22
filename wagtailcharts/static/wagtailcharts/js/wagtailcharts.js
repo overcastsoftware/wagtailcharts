@@ -1,12 +1,23 @@
-var formatValue = function (val, precision=1) {
+var formatValue = function (val, precision = 1, override) {
     if (("" + val).indexOf("%") >= 0) {
         return val;
     }
-    return accounting.formatNumber(val, [precision = precision], [thousand = "."], [decimal = ","])
+    number = accounting.formatNumber(val, [precision = precision], [thousand = "."], [decimal = ","])
+
+    if(override !== undefined && override !== "" && override !== null){
+        return number + " " + override;
+    } else {
+        return number;
+    }
 }
   
-var percentageFormatter = function (val, precision=1) {
-    return formatValue(val, precision) + "%"
+var percentageFormatter = function (val, precision = 1, override) {
+    number = formatValue(val, precision) 
+    if(override !== undefined && override !== "" && override !== null){
+        return number + " " + override;
+    } else {
+        return number + "%";
+    }
 }
 
 var isObject = function (item) {
@@ -169,7 +180,8 @@ for (i = 0; i < charts.length; ++i) {
         plugins: {
             legend: {
                 position: chart_settings['legend_position'],
-                display: chart_settings['show_legend']
+                display: chart_settings['show_legend'],
+                reverse: chart_settings['reverse_legend']
             },
             tooltip: {
                 callbacks: {
@@ -180,10 +192,10 @@ for (i = 0; i < charts.length; ++i) {
                             label += ': ';
                         }
                         data = context.dataset.data[context.dataIndex]
-                        if(data.length == 2){
-                            label += formatValue((parseFloat(data[1])*1000-parseFloat(data[0])*1000)/1000, chart_settings['precision'])
+                        if(Array.isArray(data) && data.length == 2){
+                            label += formatValue((parseFloat(data[1])*1000-parseFloat(data[0])*1000)/1000, chart_settings['precision'], chart_settings['unit_override'])
                         }else{
-                            label += formatValue(context.dataset.data[context.dataIndex], chart_settings['precision'])
+                            label += formatValue(context.dataset.data[context.dataIndex], chart_settings['precision'], chart_settings['unit_override'], chart_settings['unit_override'])
                         }
                         return label;
                     }
@@ -191,10 +203,10 @@ for (i = 0; i < charts.length; ++i) {
             },
             datalabels: {
                 formatter: function(value) {
-                    if(value.length == 2){
-                        return formatValue((parseFloat(value[1])*1000-parseFloat(value[0])*1000)/1000, chart_settings['precision'])
+                    if(Array.isArray(value) && value.length == 2){
+                        return formatValue((parseFloat(value[1])*1000-parseFloat(value[0])*1000)/1000, chart_settings['precision'], chart_settings['unit_override'])
                     }else{
-                        return formatValue(value, chart_settings['precision'])
+                        return formatValue(value, chart_settings['precision'], chart_settings['unit_override'])
                     }
                 },
             }
@@ -224,7 +236,7 @@ for (i = 0; i < charts.length; ++i) {
     }
     if (chart_settings['y_left_data_type'] === "percentage") {
         options.scales.y.ticks.callback=function(value) {
-            return percentageFormatter(value, chart_settings['y_left_precision'])
+            return percentageFormatter(value, chart_settings['y_left_precision'], chart_settings['unit_override'])
         };
         options.plugins.tooltip.callbacks.label = function(context) {
             let label = context.label || '';
@@ -233,16 +245,16 @@ for (i = 0; i < charts.length; ++i) {
                 label += ': ';
             }
             data = context.dataset.data[context.dataIndex]
-            if(data.length == 2){
-                label += percentageFormatter((parseFloat(data[1])*1000-parseFloat(data[0])*1000)/1000, chart_settings['precision'])
+            if(Array.isArray(data) && data.length == 2){
+                label += percentageFormatter((parseFloat(data[1])*1000-parseFloat(data[0])*1000)/1000, chart_settings['precision'], chart_settings['unit_override'])
             }else{
-                label += percentageFormatter(context.dataset.data[context.dataIndex], chart_settings['precision'])
+                label += percentageFormatter(context.dataset.data[context.dataIndex], chart_settings['precision'], chart_settings['unit_override'])
             }
             return label;
         }
         if (chart_settings['show_values_on_chart']){
             options.plugins.datalabels.formatter = function(value) {
-                return percentageFormatter(value, chart_settings['precision'])
+                return percentageFormatter(value, chart_settings['precision'], chart_settings['unit_override'])
             }
         }
     }
@@ -303,13 +315,10 @@ for (i = 0; i < charts.length; ++i) {
     if (chart_settings['stacking'] === 'stacked') {
         options.scales.x.stacked = true
         options.scales.y.stacked = true
-        options.plugins.legend.reverse = true;
-        datasets = datasets.reverse();
     }
+
     if (chart_settings['stacking'] === 'stacked_100') {
         options.plugins.stacked100 = { enable: true, replaceTooltipLabel: false }
-        options.plugins.legend.reverse = true;
-        datasets = datasets.reverse();
     }
 
     if (chart_settings['show_grid'] === false){
@@ -343,7 +352,11 @@ for (i = 0; i < charts.length; ++i) {
                 if(parseFloat(value) === 0.0){
                     return ''
                 }
-                return value
+                if (chart_settings['y_left_data_type'] === "percentage") {
+                    return percentageFormatter(value, chart_settings['precision'], chart_settings['unit_override'])
+                }else{
+                    return formatValue(value, chart_settings['precision'], chart_settings['unit_override'])
+                }
             }
         }
     }

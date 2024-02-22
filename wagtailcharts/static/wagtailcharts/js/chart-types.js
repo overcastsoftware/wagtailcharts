@@ -135,6 +135,7 @@ chart_types = {
         chart_options: {
             plugins:{
                 datalabels: {
+                    offset: 5,
                     align: function(context) {
                         var value = parse_datalabels_value(context);
                         return value < 0 ? 'start' : 'end';
