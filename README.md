@@ -125,6 +125,9 @@ CHART_TYPES = (
 
 # Release notes
 
+## Version 0.3.3
+* Fixed a regression from release 0.3.3 when using multiple charts on same page.
+
 ## Version 0.3.2
 * Added support for external HTML legend
 * Fixed bug in doughnut chart
