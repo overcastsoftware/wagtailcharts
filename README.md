@@ -1,6 +1,10 @@
 # Wagtail Charts
 Chart.js charts in Wagtail, edited and customised from the Wagtail admin
 
+## See it in action
+[wagtailcharts.webm](https://github.com/overcastsoftware/wagtailcharts/assets/143557/da990698-a30a-424d-9762-6131def1bfde)
+
+
 ## Getting started
 
 Assuming you have a Wagtail project up and running:
