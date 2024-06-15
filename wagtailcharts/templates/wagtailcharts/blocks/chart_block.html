@@ -1,2 +1,10 @@
 {% if self.title %}<h3>{{self.title}}</h3>{% endif %}
-<canvas id="chart-{{block.id}}" data-datasets="{{self.datasets}}" data-config="{{self.settings.config}}" data-chart-type="{{self.chart_type}}"></canvas>
+<canvas 
+    id="chart-{{block.id}}"
+    data-datasets="{{self.datasets}}"
+    data-config="{{self.settings.config}}"
+    data-chart-type="{{self.chart_type}}"
+    aria-label="A chart {% if self.title %} with the title {{self.title}} {%endif%}">
+    >
+    <p>Hello Fallback World</p>
+</canvas>
