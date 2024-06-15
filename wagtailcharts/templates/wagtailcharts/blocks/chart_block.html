@@ -1,3 +1,9 @@
+{% comment %}
+    This is the template for the ChartBlock. It is a simple HTML template that renders a canvas element with the chart data. 
+    You will probably want to override this template by creating a new template in your project with the same name and template path.
+    The template path is 'wagtailcharts/blocks/chart_block.html'
+{% endcomment %}
+
 {% if self.title %}<h3>{{self.title}}</h3>{% endif %}
 <canvas 
     id="chart-{{block.id}}"
@@ -6,5 +12,8 @@
     data-chart-type="{{self.chart_type}}"
     aria-label="A chart {% if self.title %} with the title {{self.title}} {%endif%}">
     >
-    <p>Hello Fallback World</p>
+    <p>
+        Your browser does not support the canvas element.
+        This canvas shows a chart {% if self.title %} with the title {{self.title}} {%endif%}
+    </p>
 </canvas>
