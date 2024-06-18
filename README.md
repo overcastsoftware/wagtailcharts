@@ -119,6 +119,38 @@ CHART_TYPES = (
 )
 ```
 
+### `callbacks`
+
+Since ChartJS and the plugins have a plethora of options available, we will never be able to make them all available within the wagtail interface.
+That is why we added a chart config callback option.
+
+```python
+CHART_CONFIG_CALLBACKS = (
+    ('barchart_labels', 'Bigger font and bold labels'),
+)
+
+class ContentBlocks(StreamBlock):
+    chart_block = ChartBlock(callbacks=CHART_CONFIG_CALLBACKS)
+```
+
+You then need to have a global function named the same (in this case 'barchart_labels') that returns an options object with the overrides/addons you want to add:
+
+```js
+window.barchart_labels = function() {
+    return {
+        plugins: {
+            datalabels: {
+                font: {
+                    size: 18,
+                    weight: 'bold',
+                },
+                color: '#ff0000'
+            }
+        }
+    }
+}
+```
+
 
 ## Dependencies
 * This project relies on [Jspreadsheet Community Edition](https://bossanova.uk/jspreadsheet/v4/) for data entry and manipulation. 

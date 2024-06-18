@@ -110,6 +110,10 @@ class ChartBlock(StructBlock):
         chart_type_block.set_name('chart_type')
         self.child_blocks['chart_type'] = chart_type_block
         self.child_blocks.move_to_end('chart_type', last=False)
+        if 'callbacks' in kwargs:
+            callbacks_block = ChoiceBlock(choices=kwargs.get('callbacks'), label='Chart Config Callbacks', required=False)
+            callbacks_block.set_name('callbacks')
+            self.child_blocks['callbacks'] = callbacks_block
 
     title = CharBlock(required=False)
     datasets = TextBlock(default='{"data":[], "options":{}}')
@@ -122,6 +126,7 @@ class ChartBlock(StructBlock):
         template = 'wagtailcharts/blocks/chart_block.html'
         colors = CHART_COLOR_CHOICES
         multi_chart_types = MULTI_CHART_TYPES
+        callbacks = None
 
 
 class ChartBlockAdapter(StructBlockAdapter):
@@ -132,6 +137,7 @@ class ChartBlockAdapter(StructBlockAdapter):
         meta = result[2]
         meta['colors'] = block.meta.colors
         meta['multi_chart_types'] = block.meta.multi_chart_types
+        meta['callbacks'] = block.meta.callbacks
         result[2] = meta
         return result
 
