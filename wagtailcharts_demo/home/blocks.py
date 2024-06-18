@@ -23,10 +23,14 @@ COLORS = (
 )
 
 CHART_TYPES = (
-    ('line', 'Line chart with custom title'),
+    ('bar', 'Bar chart with custom title'),
+)
+
+CHART_CONFIG_CALLBACKS = (
+    ('barchart_labels', 'Bigger font and bold labels'),
 )
 
 class ContentBlocks(StreamBlock):
     title = CharBlock()
-    chart_block_custom = ChartBlock(label="My custom chart block", colors=COLORS, chart_types=CHART_TYPES)
+    chart_block_custom = ChartBlock(label="My custom chart block", colors=COLORS, chart_types=CHART_TYPES, callbacks=CHART_CONFIG_CALLBACKS)
     chart_block = ChartBlock()

@@ -10,6 +10,7 @@
     data-datasets="{{self.datasets}}"
     data-config="{{self.settings.config}}"
     data-chart-type="{{self.chart_type}}"
+    {% if self.callbacks %}data-callback="{{self.callbacks}}"{% endif %}
     aria-label="A chart {% if self.title %} with the title {{self.title}} {%endif%}">
     >
     <p>

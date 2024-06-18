@@ -126,6 +126,7 @@ for (i = 0; i < charts.length; ++i) {
     const chart_options =  JSON.parse(charts[i].dataset.datasets).options;
     const chart_settings = JSON.parse(charts[i].dataset.config);
     const chartType = charts[i].dataset.chartType;
+    const configCallback = charts[i].dataset.callback || null;
     const chartObj = chart_types[chartType];
     let datasets = chartObj.render_datasets(chart_data, chart_options);
     const labels = chartObj.render_labels(chart_data, chart_options);
@@ -369,7 +370,10 @@ for (i = 0; i < charts.length; ++i) {
     
     chartOptions.options = mergeDeep(options, chart_types[chartType].chart_options)
 
-    console.log(chartOptions)
+    if (configCallback !== null) {
+        const fn = new Function(`return ${configCallback}()`);
+        chartOptions.options = mergeDeep(chartOptions.options, fn())
+    }
     
     let myChart = new Chart(charts[i].getContext('2d'), chartOptions);
 }
