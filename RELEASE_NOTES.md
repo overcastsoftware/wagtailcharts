@@ -1,3 +1,8 @@
+## Version x.x
+* Default chart block template updated with aria labels, a fallback paragraph and a comment about overriding the template.
+* Tested against Wagtail 6.1
+* Added a callback option to block so that the developer can create custom callbacks to customize the chart config, per block.
+
 ## Version 0.4
 * Added support for Wagtail 6.0
 * Tested against django 5.0
