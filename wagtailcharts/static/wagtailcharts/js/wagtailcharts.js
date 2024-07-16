@@ -2,7 +2,9 @@ var formatValue = function (val, precision = 1, override) {
     if (("" + val).indexOf("%") >= 0) {
         return val;
     }
-    number = accounting.formatNumber(val, [precision = precision], [thousand = "."], [decimal = ","])
+
+    // Passing 'undefined' for the locale uses the browser's default.
+    number = Intl.NumberFormat(undefined, {maximumFractionDigits: precision}).format(val)
 
     if(override !== undefined && override !== "" && override !== null){
         return number + " " + override;
