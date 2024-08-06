@@ -1,5 +1,6 @@
 ## IN DEVELOPMENT
 * Convert render_charts to simple tag for jinja2 support (Jake Howard)
+* Remove dependency for accounting.js and format numbers according to the browser's configured locale (Jake Howard)
 
 ## Version 0.5
 * Default chart block template updated with aria labels, a fallback paragraph and a comment about overriding the template.
