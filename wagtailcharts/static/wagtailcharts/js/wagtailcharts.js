@@ -3,8 +3,11 @@ var formatValue = function (val, precision = 1, override) {
         return val;
     }
 
-    // Passing 'undefined' for the locale uses the browser's default.
-    number = Intl.NumberFormat(undefined, {maximumFractionDigits: precision}).format(val)
+    // We look for the locale in the window object, which must be set before the `render_charts` template tag is called.
+    // If it is not present, it will be undefined and the browser's default locale will be used.
+    let locale = window.WAGTAILCHARTS_LOCALE;
+
+    number = Intl.NumberFormat(locale, {maximumFractionDigits: precision}).format(val)
 
     if(override !== undefined && override !== "" && override !== null){
         return number + " " + override;
