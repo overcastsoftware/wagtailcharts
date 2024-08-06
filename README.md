@@ -152,7 +152,7 @@ window.barchart_labels = function() {
 ```
 
 ### Localize number formatting according to a specific locale
-Wagtail chart formats numbers according to the browser's default locale by default.
+Wagtail chart formats numbers according to the browser's default locale by default from version 0.6 onwards.
 You can override this by setting a global javascript variable called `WAGTAILCHARTS_LOCALE` before calling the `render_charts` template tag:
 
 ```django
