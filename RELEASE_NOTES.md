@@ -1,3 +1,6 @@
+## IN DEVELOPMENT
+* Convert render_charts to simple tag for jinja2 support (Jake Howard)
+
 ## Version 0.5
 * Default chart block template updated with aria labels, a fallback paragraph and a comment about overriding the template.
 * Tested against Wagtail 6.1
