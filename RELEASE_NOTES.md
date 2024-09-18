@@ -1,3 +1,6 @@
+## Version 0.6.1
+* Fixed a bug in the render_charts template tag.
+
 ## Version 0.6
 * Convert render_charts to simple tag for jinja2 support (Jake Howard)
 * Remove dependency for accounting.js and format numbers according to the browser's configured locale (Jake Howard)

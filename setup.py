@@ -24,7 +24,7 @@ documentation_extras = [
 
 setup(
     name='wagtailcharts',
-    version='0.6.0',
+    version='0.6.1',
     packages=['wagtailcharts'],
     include_package_data=True,
     license='MIT',
