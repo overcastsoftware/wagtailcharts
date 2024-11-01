@@ -1,3 +1,9 @@
+## Version 0.6.3
+* Minor ui color bugfix.
+
+## Version 0.6.2
+* Re-release due to 0.6.1 not releasing correctly.
+
 ## Version 0.6.1
 * Fixed a bug in the render_charts template tag.
 
