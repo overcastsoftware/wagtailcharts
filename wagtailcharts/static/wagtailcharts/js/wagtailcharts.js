@@ -1,3 +1,7 @@
+Chart.defaults.set('plugins.datalabels', {
+    color: '#000000',
+});
+
 var formatValue = function (val, precision = 1, override) {
     if (("" + val).indexOf("%") >= 0) {
         return val;
