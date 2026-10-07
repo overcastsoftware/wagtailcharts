@@ -1,3 +1,6 @@
+## Unreleased
+* Fixed combo chart dataset options being swapped when the editor loads: saved `type` values ended up in the Y axis column and vice versa, and the swapped values were written back on save.
+
 ## Version 0.6.3
 * Minor ui color bugfix.
 
