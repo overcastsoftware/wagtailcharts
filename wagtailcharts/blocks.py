@@ -8,7 +8,11 @@ from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
 import wagtail
 
 from wagtail.blocks.struct_block import StructBlockAdapter
-from wagtail.telepath import register
+
+try:
+    from wagtail.admin.telepath import register
+except ImportError:  # Wagtail < 7.1
+    from wagtail.telepath import register
 
 CHART_TYPES = (
     ('line', 'Line Chart'),
@@ -114,6 +118,11 @@ class ChartBlock(StructBlock):
             callbacks_block = ChoiceBlock(choices=kwargs.get('callbacks'), label='Chart Config Callbacks', required=False)
             callbacks_block.set_name('callbacks')
             self.child_blocks['callbacks'] = callbacks_block
+        # Wagtail 7.3+ builds the editor's form layout from child_blocks inside
+        # StructBlock.__init__, before chart_type and callbacks were added above.
+        if hasattr(self, 'get_form_layout'):
+            self.meta.form_layout = None
+            self.meta.form_layout = self.get_form_layout()
 
     title = CharBlock(required=False)
     datasets = TextBlock(default='{"data":[], "options":{}}')
