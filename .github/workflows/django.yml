@@ -14,59 +14,23 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            wagtail: 'wagtail<6.1'
-            django: 'django<5.1'
-          - python: '3.11'
-            wagtail: 'wagtail<6.1'
-            django: 'django<5.1'
+            wagtail: 'wagtail<8.1'
+            django: 'django<6.0'
+          - python: '3.13'
+            wagtail: 'wagtail<8.1'
+            django: 'django<6.1'
+          - python: '3.14'
+            wagtail: 'wagtail<8.1'
+            django: 'django<6.2'
+          - python: '3.12'
+            wagtail: 'wagtail<8.0'
+            django: 'django<6.1'
           - python: '3.10'
-            wagtail: 'wagtail<6.2'
-            django: 'django<5.1'
-          - python: '3.11'
-            wagtail: 'wagtail<6.2'
-            django: 'django<5.1'
-          - python: '3.10'
-            wagtail: 'wagtail<5.2'
-            django: 'django<5.1'
-          - python: '3.11'
-            wagtail: 'wagtail<5.2'
-            django: 'django<5.1'
-          - python: '3.10'
-            wagtail: 'wagtail<5.1'
-            django: 'django<5.1'
-          - python: '3.11'
-            wagtail: 'wagtail<5.1'
-            django: 'django<5.1'
-          - python: '3.10'
-            wagtail: 'wagtail<4.3'
-            django: 'django<5.1'
-          - python: '3.11'
-            wagtail: 'wagtail<4.3'
-            django: 'django<5.1'
-          - python: '3.10'
-            wagtail: 'wagtail<6.1'
-            django: 'django<5.0'
-          - python: '3.11'
-            wagtail: 'wagtail<6.1'
-            django: 'django<5.0'
-          - python: '3.10'
-            wagtail: 'wagtail<5.2'
-            django: 'django<5.0'
-          - python: '3.11'
-            wagtail: 'wagtail<5.2'
-            django: 'django<5.0'
-          - python: '3.10'
-            wagtail: 'wagtail<5.1'
-            django: 'django<5.0'
-          - python: '3.11'
-            wagtail: 'wagtail<5.1'
-            django: 'django<5.0'
-          - python: '3.10'
-            wagtail: 'wagtail<4.3'
-            django: 'django<5.0'
-          - python: '3.11'
-            wagtail: 'wagtail<4.3'
-            django: 'django<5.0'
+            wagtail: 'wagtail<7.1'
+            django: 'django<6.0'
+          - python: '3.13'
+            wagtail: 'wagtail<7.1'
+            django: 'django<6.0'
 
     runs-on: 'ubuntu-latest'
 
@@ -95,9 +59,9 @@ jobs:
           sudo sysctl -w vm.swappiness=1
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
       - name: Install dependencies

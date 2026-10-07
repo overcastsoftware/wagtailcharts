@@ -7,7 +7,7 @@ from .blocks import ContentBlocks
 
 
 class HomePage(Page):
-    body = StreamField(ContentBlocks(), use_json_field=True)
+    body = StreamField(ContentBlocks())
 
     content_panels = Page.content_panels + [
         FieldPanel('body'),

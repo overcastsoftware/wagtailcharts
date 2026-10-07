@@ -1,5 +1,3 @@
-from sre_constants import CHARSET
-
 from wagtail.blocks import (CharBlock, ChoiceBlock, RichTextBlock,
                                  StreamBlock, StructBlock, TextBlock)
 from wagtail.embeds.blocks import EmbedBlock
