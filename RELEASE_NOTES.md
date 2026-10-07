@@ -1,7 +1,8 @@
-## Unreleased
+## Version 0.7
 * Added support for Wagtail 8.0 (`wagtail.telepath` moved to `wagtail.admin.telepath`)
 * Fixed the Chart Type and Callbacks fields missing from the editor on Wagtail 7.3+
 * Tested against Wagtail 7.0, 7.4 and 8.0 with Django 5.2, 6.0 and 6.1
+* Removed support for Wagtail < 7.0
 
 ## Version 0.6.3
 * Minor ui color bugfix.
