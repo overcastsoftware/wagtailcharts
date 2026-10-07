@@ -53,9 +53,9 @@ class ChartDefinition extends window.wagtailStreamField.blocks.StructBlockDefini
         }
         for ( var j=0; j < chart_types[chartType].dataset_options.length; j++){
           if( spreadOptions[chart_types[chartType].dataset_options[j]]){
-            row.splice(2,0, spreadOptions[chart_types[chartType].dataset_options[j]][i])
+            row.splice(2 + j, 0, spreadOptions[chart_types[chartType].dataset_options[j]][i])
           }else{
-            row.splice(2,0, "")
+            row.splice(2 + j, 0, "")
           }
         }
         data.push(row);
